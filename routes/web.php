@@ -100,10 +100,6 @@ Route::get('/tasks/{id}', function ($id ) use ($tasks) {
 
 
 
-
-
-
-
 // Route::get('/about', function () {
 //     return view('about' ,
 //     ['name'=> 'Farid Ahmad Haidary']);
