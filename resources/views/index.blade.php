@@ -12,12 +12,13 @@
     <h1>This is my main page of application</h1>
 
     @if (count($tasks))
-        <div>
-            <h2>There are some Tasks to do:</h2>
-        </div>
-    @else
-        <div>
-           <h2> There are no Tasks to do!</h2>
+        @foreach ($tasks as $task)
+            <h1>
+                <a href="{{ route('tasks.show', ['id' => $task->id]) }}">
+                    {{ $task->title }}
+                </a>
+            </h1>
+        @endforeach
     @endif
 
 </body>

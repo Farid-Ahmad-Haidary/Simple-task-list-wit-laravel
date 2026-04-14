@@ -76,28 +76,35 @@ $tasks = [
 Route::get('/', function () use ($tasks) {
     return view('index',
     ['tasks' => $tasks]);
-});
+})->name('tasks.index');
 
 
-Route::get('index', function () {
-    return view('index');
-})->name('Home');
+
+// 
+Route::get('/{id}', function ($id) {
+    return "One task with id: $id";
+})->name('tasks.show');
 
 
-Route::get('/about', function () {
-    return view('about' ,
-    ['name'=> 'Farid Ahmad Haidary']);
-    })->name("about");
 
 
-Route::get('/blogs', function () {
-    return view('blogs');
-})->name('blogs');
 
 
-Route::get('contact/{Number}', function ($number) {
-    return "This is contact page and this is my number: $number";
-})->name('contact');
+
+// Route::get('/about', function () {
+//     return view('about' ,
+//     ['name'=> 'Farid Ahmad Haidary']);
+//     })->name("about");
+
+
+// Route::get('/blogs', function () {
+//     return view('blogs');
+// })->name('blogs');
+
+
+// Route::get('contact/{Number}', function ($number) {
+//     return "This is contact page and this is my number: $number";
+// })->name('contact');
 
 
 Route::fallback(function () {
