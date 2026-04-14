@@ -1,26 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home Page</title>
-</head>
+@section('title', 'This is the manin page of Application')
 
-<body>
-    <h1>This is my main page of application</h1>
 
-    @if (count($tasks))
-        @foreach ($tasks as $task)
-            <h1>
-                <a href="{{ route('tasks.show', ['id' => $task->id]) }}">
-                    {{ $task->title }}
-                </a>
-            </h1>
-        @endforeach
-    @endif
+@section('content')
+    <div>
+        @if (count($tasks))
+            <ul>
+                @foreach ($tasks as $task)
+                    <h1>
+                        <a href="{{ route('tasks.show', ['id' => $task->id]) }}"> {{ $task->title }}</a>
+                    </h1>
+                @endforeach
+            </ul>
 
-</body>
+        @endif
 
-</html>
+    </div>
+@endsection
