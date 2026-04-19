@@ -80,21 +80,15 @@ Route::get('/', function () {
 
 
 
-Route::get('/tasks', function () use ($tasks) {
+Route::get('/tasks', function () {
     return view('index',
-    ['tasks' => $tasks]);
+    ['tasks' => \App\Models\Task::latest()->get()]);
 })->name('tasks.index');
 
 
 
 Route::get('/tasks/{id}', function ($id ) use ($tasks) {
-  $task = collect($tasks)->firstWhere('id' , $id);
-
-  if (! $task) {
-    abort(Response::HTTP_NOT_FOUND);
-
-  }
-  return view('show', ['task'=> $task]);
+  return view('show', ['task'=> \App\Models\Task::findOrFail($id)]);
     
 })->name('tasks.show');
 

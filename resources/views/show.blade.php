@@ -6,7 +6,7 @@
 
 @section('content')
     <div>
-        <p>{{ $task->description }}</p>
+        <p class="text-bold">{{ $task->description }}</p>
 
         @if ($task->long_description)
             <p>{{ $task->long_description }}</p>
