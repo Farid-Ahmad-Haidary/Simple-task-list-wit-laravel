@@ -1,115 +1,39 @@
 <?php
 
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
-class Task
-{
-  public function __construct(
-    public int $id,
-    public string $title,
-    public string $description,
-    public ?string $long_description,
-    public bool $completed,
-    public string $created_at,
-    public string $updated_at
-  ) {
-  }
-}
-
-$tasks = [
-  new Task(
-    1,
-    'Buy groceries',
-    'Task 1 description',
-    'Task 1 long description',
-    false,
-    '2023-03-01 12:00:00',
-    '2023-03-01 12:00:00'
-  ),
-  new Task(
-    2,
-    'Sell old stuff',
-    'Task 2 description',
-    null,
-    false,
-    '2023-03-02 12:00:00',
-    '2023-03-02 12:00:00'
-  ),
-  new Task(
-    3,
-    'Learn programming',
-    'Task 3 description',
-    'Task 3 long description',
-    true,
-    '2023-03-03 12:00:00',
-    '2023-03-03 12:00:00'
-  ),
-  new Task(
-    4,
-    'Take dogs for a walk',
-    'Task 4 description',
-    null,
-    false,
-    '2023-03-04 12:00:00',
-    '2023-03-04 12:00:00'
-  ),
-   new Task(
-    5,
-    'Read a book',
-    'Task 5 description',
-    'Task 5 long description',
-    true,
-    '2026-03-05 12:00:00',
-    '2026-03-05 12:00:00'
-  ),
-  new Task(
-    6,
-    'Go to the gym',
-    'Task 6 description',
-    null,
-    false,
-    '2023-03-06 12:00:00',
-    '2023-03-06 12:00:00'
-  )
-];
-
+//? Redirects the root URL to the tasks index page
 Route::get('/', function () {
   return redirect('/tasks');
 });
 
 
 
+//? Displays the index view with a list of all tasks, ordered by latest creation
 Route::get('/tasks', function () {
     return view('index',
     ['tasks' => \App\Models\Task::latest()->get()]);
 })->name('tasks.index');
 
 
+//? Renders the create view for adding a new task
+Route::view('/tasks/create' ,'create')->name('tasks.create');
 
+
+//? Displays the show view for a specific task identified by its ID
 Route::get('/tasks/{id}', function ($id ){
   return view('show', ['task'=> \App\Models\Task::findOrFail($id)]);
-    
-})->name('tasks.show');
+    })->name('tasks.show');
 
 
-
-// Route::get('/about', function () {
-//     return view('about' ,
-//     ['name'=> 'Farid Ahmad Haidary']);
-//     })->name("about");
-
-
-// Route::get('/blogs', function () {
-//     return view('blogs');
-// })->name('blogs');
+//? Handles the POST request to store a new task (currently dumps the request data for debugging)
+Route::post('/tasks', function (Request $request) {
+    dd($request->all());
+})->name('tasks.store');
 
 
-// Route::get('contact/{Number}', function ($number) {
-//     return "This is contact page and this is my number: $number";
-// })->name('contact');
-
-
+//? Provides a fallback response for any unmatched routes, indicating the page is not completed
 Route::fallback(function () {
     return "This page is not complated right now!";
 });
