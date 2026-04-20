@@ -87,7 +87,7 @@ Route::get('/tasks', function () {
 
 
 
-Route::get('/tasks/{id}', function ($id ) use ($tasks) {
+Route::get('/tasks/{id}', function ($id ){
   return view('show', ['task'=> \App\Models\Task::findOrFail($id)]);
     
 })->name('tasks.show');
