@@ -5,7 +5,7 @@
     <style>
         .error_message {
             color: red;
-            font-size: 14px;
+            font-size: 0.8rem;
         }
     </style>
 @endsection

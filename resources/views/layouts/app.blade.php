@@ -13,8 +13,15 @@
 <body>
 
     <h1> @yield('title')</h1>
+    <div>
+        @if (session()->has('success'))
+            <div>
+                <p>{{ session('success') }}</p>
+            </div>
+        @endif
+        @yield('content')
+    </div>
 
-    @yield('content')
 
 </body>
 
