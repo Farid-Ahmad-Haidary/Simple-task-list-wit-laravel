@@ -8,11 +8,11 @@
             list-style: none;
             padding: 0;
         }
-        
+
         .tasks-list li {
             margin-bottom: 15px;
         }
-        
+
         .tasks-list a {
             display: block;
             padding: 12px 20px;
@@ -22,7 +22,6 @@
             border-radius: 8px;
             transition: all 0.3s ease;
         }
-        
     </style>
 @endsection
 
@@ -32,7 +31,7 @@
             <ul class="tasks-list">
                 @foreach ($tasks as $task)
                     <li>
-                        <a href="{{ route('tasks.show', ['id' => $task->id]) }}">
+                        <a href="{{ route('tasks.show', ['task' => $task->id]) }}">
                             {{ $task->title }}
                         </a>
                     </li>

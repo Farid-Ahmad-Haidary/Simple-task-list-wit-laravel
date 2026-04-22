@@ -25,16 +25,16 @@ Route::view('/tasks/create', 'create')->name('tasks.create');
 // روت شماره ۴: نمایش فرم ویرایش تسک (EDIT)
 // ============================================================================
 
-Route::get('/tasks/{id}/edit', function ($id) {
-    return view('edit', ['task' => Task::findOrFail($id)]);
+Route::get('/tasks/{task}/edit', function (Task $task) {
+    return view('edit', ['task'=> $task]);
 })->name('tasks.edit');
 
 // ============================================================================
 // روت شماره ۵: نمایش جزئیات یک تسک (SHOW)
 // ============================================================================
 
-Route::get('/tasks/{id}', function ($id) {
-    return view('show', ['task' => Task::findOrFail($id)]);
+Route::get('/tasks/{task}', function (Task $task) {
+    return view('show', ['task' => $task]);
 })->name('tasks.show');
 
 // ============================================================================
@@ -65,16 +65,13 @@ Route::post('/tasks', function (Request $request) {
 // روت شماره ۷: بروزرسانی تسک موجود در دیتابیس (UPDATE)
 // ============================================================================
 
-Route::put('/tasks/{id}', function ($id, Request $request) {
+Route::put('/tasks/{task}', function (Task $task, Request $request) {
     $data = $request->validate([
         'title' => 'required|max:255',
         'description' => 'required',
         'long_description' => 'required'
     ]);
-
-    // پیدا کردن تسک موجود (اگر نبود خطا می‌دهد)
-    $task = Task::findOrFail($id);
-    
+   
     // جایگزینی Data قدیمی با داده‌های جدید
     $task->title = $data['title'];
     $task->description = $data['description'];

@@ -14,7 +14,7 @@
 @section('content')
     <div class="max-w-md mx-auto mt-10 bg-white p-6 rounded-lg shadow-md">
         <h1 class="text-2xl font-bold mb-6 text-center">Edit Task</h1>
-        <form action="{{ route('tasks.update', ['id' => $task->id]) }}" method="POST">
+        <form action="{{ route('tasks.update', ['task' => $task->id]) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="mb-4">
