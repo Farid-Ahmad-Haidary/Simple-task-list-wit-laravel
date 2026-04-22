@@ -1,17 +1,14 @@
 <?php
 
+use App\Http\Requests\TaskRequest;
 use App\Models\Task;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 
 
 Route::get('/', function () {
     return redirect('/tasks');
 });
 
-// ============================================================================
-// روت شماره ۲: نمایش همه تسک‌ها (INDEX)
-// ============================================================================
 
 Route::get('/tasks', function () {
     return view('index', ['tasks' => Task::latest()->get()]);
@@ -41,47 +38,18 @@ Route::get('/tasks/{task}', function (Task $task) {
 // روت شماره ۶: ذخیره تسک جدید در دیتابیس (STORE)
 // ============================================================================
 
-Route::post('/tasks', function (Request $request) {
-    $data = $request->validate([
-        'title' => 'required|max:255',
-        'description' => 'required',
-        'long_description' => 'required'
-    ]);
-
-    // ایجاد شیء جدید در حافظه (هنوز در دیتابیس نیست)
-    $task = new Task();
-    $task->title = $data['title'];
-    $task->description = $data['description'];
-    $task->long_description = $data['long_description'];
-    
-    // ذخیره در دیتابیس (حالا یک ID دریافت می‌کند)
-    $task->save();
-
-    // هدایت به صفحه نمایش همان تسک
-    return redirect()->route('tasks.show', ['id' => $task->id]);
+Route::post('/tasks', function (TaskRequest $request) {
+    $task = Task::create($request->validated());
+    return redirect()->route('tasks.show', ['task' => $task->id]);
 })->name('tasks.store');
 
 // ============================================================================
 // روت شماره ۷: بروزرسانی تسک موجود در دیتابیس (UPDATE)
 // ============================================================================
 
-Route::put('/tasks/{task}', function (Task $task, Request $request) {
-    $data = $request->validate([
-        'title' => 'required|max:255',
-        'description' => 'required',
-        'long_description' => 'required'
-    ]);
-   
-    // جایگزینی Data قدیمی با داده‌های جدید
-    $task->title = $data['title'];
-    $task->description = $data['description'];
-    $task->long_description = $data['long_description'];
-    
-    // ذخیره در دیتابیس (آپدیت)
-    $task->save();
-
-    // هدایت به صفحه نمایش همان تسک
-    return redirect()->route('tasks.show', ['id' => $task->id]);
+Route::put('/tasks/{task}', function (Task $task, TaskRequest $request) {
+   $task->update($request->validated());
+    return redirect()->route('tasks.show', ['task' => $task->id]);
 })->name('tasks.update');
 
 // ============================================================================
