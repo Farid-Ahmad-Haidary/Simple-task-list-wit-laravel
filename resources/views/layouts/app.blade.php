@@ -12,7 +12,7 @@
 
 <body>
 
-    <h1> @yield('title')</h1>
+    <h1 class="text-black font-extrabold "> @yield('title')</h1>
     <div>
         @if (session()->has('success'))
             <div>
