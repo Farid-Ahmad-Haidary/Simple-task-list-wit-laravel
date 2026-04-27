@@ -41,4 +41,9 @@
             <p>هیچ کاری وجود ندارد!</p>
         @endif
     </div>
+    @if ($task->count())
+        <nav>
+            {{ $tasks->links() }}
+        </nav>
+    @endif
 @endsection
