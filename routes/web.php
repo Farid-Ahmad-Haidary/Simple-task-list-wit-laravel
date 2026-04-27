@@ -52,6 +52,11 @@ Route::put('/tasks/{task}', function (Task $task, TaskRequest $request) {
     return redirect()->route('tasks.show', ['task' => $task->id]);
 })->name('tasks.update');
 
+
+Route::delete('/tasks/{task}', function (Task $task) {
+    $task->delete();
+    return redirect()->route('tasks.index')->with('success', 'تسک حذف شد!');
+})->name('task.destroy');
 // ============================================================================
 // روت شماره ۸: روت خطا (FALLBACK) 
 // ============================================================================
